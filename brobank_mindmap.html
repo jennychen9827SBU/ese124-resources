@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BroBank CLI — Project Mind Map</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #ffffff; font-family: Arial, sans-serif; padding: 16px; }
+  h1 { text-align: center; font-size: 20px; font-weight: 600; color: #2C2C2A; margin-bottom: 6px; }
+  p.sub { text-align: center; font-size: 13px; color: #5F5E5A; margin-bottom: 12px; }
+  svg text { font-family: Arial, sans-serif; }
+  .legend { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 12px; }
+  .legend-item { display: flex; align-items: center; gap: 5px; font-size: 12px; color: #444; }
+  .legend-dot { width: 12px; height: 12px; border-radius: 3px; flex-shrink: 0; }
+  .node { cursor: pointer; }
+  .node:hover { opacity: 0.85; }
+</style>
+</head>
+<body>
+<h1>BroBank CLI — Project Road Map</h1>
+<p class="sub">ESE 124 Summer 2026 · CAD Lab at ECE, Stony Brook University</p>
+
+<svg width="100%" viewBox="0 0 760 700" role="img" xmlns="http://www.w3.org/2000/svg">
+  <title>BroBank CLI Mind Map</title>
+  <desc>Colorful mind map showing the BroBank CLI project organized by 5 weekly themes plus core features and quality.</desc>
+
+  <!-- CENTER NODE -->
+  <circle cx="380" cy="350" r="52" fill="#3C3489" stroke="#534AB7" stroke-width="2"/>
+  <text x="380" y="344" text-anchor="middle" font-size="15" font-weight="700" fill="#EEEDFE">BroBank</text>
+  <text x="380" y="362" text-anchor="middle" font-size="12" fill="#AFA9EC">CLI Project</text>
+
+  <!-- ===== WEEK 1: FOUNDATIONS (top-left) ===== -->
+  <line x1="340" y1="304" x2="230" y2="210" stroke="#185FA5" stroke-width="2"/>
+  <rect x="144" y="178" width="172" height="40" rx="8" fill="#185FA5" stroke="#0C447C" stroke-width="1"/>
+  <text x="230" y="202" text-anchor="middle" font-size="13" font-weight="700" fill="#E6F1FB">Week 1: Foundations</text>
+
+  <line x1="192" y1="178" x2="148" y2="142" stroke="#378ADD" stroke-width="1"/>
+  <rect x="66" y="120" width="126" height="32" rx="6" fill="#B5D4F4" stroke="#85B7EB" stroke-width="0.8"/>
+  <text x="129" y="139" text-anchor="middle" font-size="12" fill="#042C53">Variables &amp; types</text>
+
+  <line x1="230" y1="178" x2="230" y2="142" stroke="#378ADD" stroke-width="1"/>
+  <rect x="172" y="120" width="116" height="32" rx="6" fill="#B5D4F4" stroke="#85B7EB" stroke-width="0.8"/>
+  <text x="230" y="139" text-anchor="middle" font-size="12" fill="#042C53">Conditionals</text>
+
+  <line x1="272" y1="178" x2="308" y2="142" stroke="#378ADD" stroke-width="1"/>
+  <rect x="254" y="120" width="112" height="32" rx="6" fill="#B5D4F4" stroke="#85B7EB" stroke-width="0.8"/>
+  <text x="310" y="139" text-anchor="middle" font-size="12" fill="#042C53">printf / scanf</text>
+
+  <!-- ===== WEEK 2: CONTROL FLOW (right) ===== -->
+  <line x1="432" y1="328" x2="524" y2="278" stroke="#3B6D11" stroke-width="2"/>
+  <rect x="518" y="252" width="174" height="40" rx="8" fill="#3B6D11" stroke="#27500A" stroke-width="1"/>
+  <text x="605" y="276" text-anchor="middle" font-size="13" font-weight="700" fill="#EAF3DE">Week 2: Control flow</text>
+
+  <line x1="666" y1="252" x2="690" y2="210" stroke="#639922" stroke-width="1"/>
+  <rect x="628" y="188" width="124" height="32" rx="6" fill="#C0DD97" stroke="#97C459" stroke-width="0.8"/>
+  <text x="690" y="207" text-anchor="middle" font-size="12" fill="#173404">Input validation</text>
+
+  <line x1="605" y1="252" x2="605" y2="214" stroke="#639922" stroke-width="1"/>
+  <rect x="561" y="192" width="88" height="32" rx="6" fill="#C0DD97" stroke="#97C459" stroke-width="0.8"/>
+  <text x="605" y="211" text-anchor="middle" font-size="12" fill="#173404">Loops</text>
+
+  <line x1="540" y1="266" x2="498" y2="232" stroke="#639922" stroke-width="1"/>
+  <rect x="440" y="210" width="116" height="32" rx="6" fill="#C0DD97" stroke="#97C459" stroke-width="0.8"/>
+  <text x="498" y="229" text-anchor="middle" font-size="12" fill="#173404">Switch menus</text>
+
+  <!-- ===== WEEK 3: MODULAR DESIGN (left) ===== -->
+  <line x1="330" y1="370" x2="224" y2="396" stroke="#854F0B" stroke-width="2"/>
+  <rect x="84" y="374" width="180" height="40" rx="8" fill="#BA7517" stroke="#854F0B" stroke-width="1"/>
+  <text x="174" y="398" text-anchor="middle" font-size="13" font-weight="700" fill="#FAEEDA">Week 3: Modular design</text>
+
+  <line x1="120" y1="414" x2="92" y2="456" stroke="#EF9F27" stroke-width="1"/>
+  <rect x="36" y="444" width="112" height="32" rx="6" fill="#FAC775" stroke="#EF9F27" stroke-width="0.8"/>
+  <text x="92" y="463" text-anchor="middle" font-size="12" fill="#412402">Functions</text>
+
+  <line x1="162" y1="414" x2="154" y2="456" stroke="#EF9F27" stroke-width="1"/>
+  <rect x="88" y="444" width="128" height="32" rx="6" fill="#FAC775" stroke="#EF9F27" stroke-width="0.8"/>
+  <text x="152" y="463" text-anchor="middle" font-size="12" fill="#412402">Decomposition</text>
+
+  <line x1="218" y1="414" x2="238" y2="456" stroke="#EF9F27" stroke-width="1"/>
+  <rect x="176" y="444" width="124" height="32" rx="6" fill="#FAC775" stroke="#EF9F27" stroke-width="0.8"/>
+  <text x="238" y="463" text-anchor="middle" font-size="12" fill="#412402">Reuse helpers</text>
+
+  <!-- ===== WEEK 4: DATA MODELING (top-right) ===== -->
+  <line x1="410" y1="302" x2="492" y2="196" stroke="#7F77DD" stroke-width="2"/>
+  <rect x="482" y="160" width="180" height="40" rx="8" fill="#534AB7" stroke="#3C3489" stroke-width="1"/>
+  <text x="572" y="184" text-anchor="middle" font-size="13" font-weight="700" fill="#EEEDFE">Week 4: Data modeling</text>
+
+  <line x1="520" y1="160" x2="496" y2="122" stroke="#AFA9EC" stroke-width="1"/>
+  <rect x="440" y="100" width="112" height="32" rx="6" fill="#CECBF6" stroke="#AFA9EC" stroke-width="0.8"/>
+  <text x="496" y="119" text-anchor="middle" font-size="12" fill="#26215C">Structs</text>
+
+  <line x1="572" y1="160" x2="572" y2="122" stroke="#AFA9EC" stroke-width="1"/>
+  <rect x="524" y="100" width="96" height="32" rx="6" fill="#CECBF6" stroke="#AFA9EC" stroke-width="0.8"/>
+  <text x="572" y="119" text-anchor="middle" font-size="12" fill="#26215C">Arrays</text>
+
+  <line x1="626" y1="168" x2="662" y2="130" stroke="#AFA9EC" stroke-width="1"/>
+  <rect x="594" y="108" width="150" height="32" rx="6" fill="#CECBF6" stroke="#AFA9EC" stroke-width="0.8"/>
+  <text x="669" y="127" text-anchor="middle" font-size="12" fill="#26215C">Transaction history</text>
+
+  <!-- ===== WEEK 5: PERSISTENCE (top-center) ===== -->
+  <line x1="370" y1="300" x2="370" y2="210" stroke="#0F6E56" stroke-width="2"/>
+  <rect x="274" y="172" width="192" height="40" rx="8" fill="#0F6E56" stroke="#085041" stroke-width="1"/>
+  <text x="370" y="196" text-anchor="middle" font-size="13" font-weight="700" fill="#E1F5EE">Week 5: Persistence</text>
+
+  <line x1="316" y1="172" x2="270" y2="132" stroke="#1D9E75" stroke-width="1"/>
+  <rect x="190" y="110" width="128" height="32" rx="6" fill="#9FE1CB" stroke="#5DCAA5" stroke-width="0.8"/>
+  <text x="254" y="129" text-anchor="middle" font-size="12" fill="#04342C">Simple parsing</text>
+
+  <line x1="370" y1="172" x2="370" y2="134" stroke="#1D9E75" stroke-width="1"/>
+  <rect x="314" y="112" width="112" height="32" rx="6" fill="#9FE1CB" stroke="#5DCAA5" stroke-width="0.8"/>
+  <text x="370" y="131" text-anchor="middle" font-size="12" fill="#04342C">File I/O</text>
+
+  <line x1="430" y1="172" x2="462" y2="134" stroke="#1D9E75" stroke-width="1"/>
+  <rect x="396" y="112" width="148" height="32" rx="6" fill="#9FE1CB" stroke="#5DCAA5" stroke-width="0.8"/>
+  <text x="470" y="131" text-anchor="middle" font-size="12" fill="#04342C">Save / load state</text>
+
+  <!-- ===== CORE FEATURES (bottom-center) ===== -->
+  <line x1="380" y1="402" x2="380" y2="460" stroke="#993C1D" stroke-width="2"/>
+  <rect x="290" y="456" width="180" height="40" rx="8" fill="#D85A30" stroke="#993C1D" stroke-width="1"/>
+  <text x="380" y="480" text-anchor="middle" font-size="13" font-weight="700" fill="#FAECE7">Core features</text>
+
+  <line x1="310" y1="456" x2="250" y2="416" stroke="#F0997B" stroke-width="1"/>
+  <rect x="178" y="398" width="112" height="30" rx="6" fill="#F5C4B3" stroke="#F0997B" stroke-width="0.8"/>
+  <text x="234" y="416" text-anchor="middle" font-size="12" fill="#4A1B0C">PIN auth</text>
+
+  <line x1="336" y1="496" x2="286" y2="548" stroke="#F0997B" stroke-width="1"/>
+  <rect x="222" y="534" width="100" height="30" rx="6" fill="#F5C4B3" stroke="#F0997B" stroke-width="0.8"/>
+  <text x="272" y="552" text-anchor="middle" font-size="12" fill="#4A1B0C">Withdraw</text>
+
+  <line x1="362" y1="496" x2="356" y2="548" stroke="#F0997B" stroke-width="1"/>
+  <rect x="298" y="534" width="118" height="30" rx="6" fill="#F5C4B3" stroke="#F0997B" stroke-width="0.8"/>
+  <text x="357" y="552" text-anchor="middle" font-size="12" fill="#4A1B0C">View balance</text>
+
+  <line x1="390" y1="496" x2="418" y2="548" stroke="#F0997B" stroke-width="1"/>
+  <rect x="356" y="534" width="130" height="30" rx="6" fill="#F5C4B3" stroke="#F0997B" stroke-width="0.8"/>
+  <text x="421" y="552" text-anchor="middle" font-size="12" fill="#4A1B0C">Create account</text>
+
+  <line x1="416" y1="490" x2="468" y2="548" stroke="#F0997B" stroke-width="1"/>
+  <rect x="422" y="534" width="94" height="30" rx="6" fill="#F5C4B3" stroke="#F0997B" stroke-width="0.8"/>
+  <text x="469" y="552" text-anchor="middle" font-size="12" fill="#4A1B0C">Deposit</text>
+
+  <line x1="440" y1="480" x2="532" y2="510" stroke="#F0997B" stroke-width="1"/>
+  <rect x="490" y="496" width="96" height="30" rx="6" fill="#F5C4B3" stroke="#F0997B" stroke-width="0.8"/>
+  <text x="538" y="514" text-anchor="middle" font-size="12" fill="#4A1B0C">Transfer</text>
+
+  <line x1="460" y1="464" x2="548" y2="464" stroke="#F0997B" stroke-width="1"/>
+  <rect x="516" y="450" width="112" height="30" rx="6" fill="#F5C4B3" stroke="#F0997B" stroke-width="0.8"/>
+  <text x="572" y="468" text-anchor="middle" font-size="12" fill="#4A1B0C">View history</text>
+
+  <!-- ===== QUALITY (bottom-left) ===== -->
+  <line x1="334" y1="384" x2="240" y2="492" stroke="#5F5E5A" stroke-width="2"/>
+  <rect x="168" y="478" width="100" height="38" rx="8" fill="#5F5E5A" stroke="#444441" stroke-width="1"/>
+  <text x="218" y="501" text-anchor="middle" font-size="13" font-weight="700" fill="#F1EFE8">Quality</text>
+
+  <line x1="190" y1="516" x2="150" y2="558" stroke="#888780" stroke-width="1"/>
+  <rect x="86" y="544" width="96" height="30" rx="6" fill="#D3D1C7" stroke="#B4B2A9" stroke-width="0.8"/>
+  <text x="134" y="562" text-anchor="middle" font-size="12" fill="#2C2C2A">Test runs</text>
+
+  <line x1="218" y1="516" x2="210" y2="558" stroke="#888780" stroke-width="1"/>
+  <rect x="150" y="544" width="120" height="30" rx="6" fill="#D3D1C7" stroke="#B4B2A9" stroke-width="0.8"/>
+  <text x="210" y="562" text-anchor="middle" font-size="12" fill="#2C2C2A">Clear prompts</text>
+
+  <line x1="256" y1="510" x2="290" y2="558" stroke="#888780" stroke-width="1"/>
+  <rect x="238" y="544" width="104" height="30" rx="6" fill="#D3D1C7" stroke="#B4B2A9" stroke-width="0.8"/>
+  <text x="290" y="562" text-anchor="middle" font-size="12" fill="#2C2C2A">Edge cases</text>
+
+  <line x1="268" y1="494" x2="330" y2="544" stroke="#888780" stroke-width="1"/>
+  <rect x="280" y="530" width="100" height="30" rx="6" fill="#D3D1C7" stroke="#B4B2A9" stroke-width="0.8"/>
+  <text x="330" y="548" text-anchor="middle" font-size="12" fill="#2C2C2A">Basic menu</text>
+
+  <!-- Legend row -->
+  <rect x="30" y="660" width="12" height="12" rx="2" fill="#185FA5"/>
+  <text x="48" y="671" font-size="11" fill="#444">Wk 1: Foundations</text>
+  <rect x="158" y="660" width="12" height="12" rx="2" fill="#3B6D11"/>
+  <text x="176" y="671" font-size="11" fill="#444">Wk 2: Control flow</text>
+  <rect x="294" y="660" width="12" height="12" rx="2" fill="#BA7517"/>
+  <text x="312" y="671" font-size="11" fill="#444">Wk 3: Modular design</text>
+  <rect x="454" y="660" width="12" height="12" rx="2" fill="#534AB7"/>
+  <text x="472" y="671" font-size="11" fill="#444">Wk 4: Data modeling</text>
+  <rect x="30" y="680" width="12" height="12" rx="2" fill="#0F6E56"/>
+  <text x="48" y="691" font-size="11" fill="#444">Wk 5: Persistence</text>
+  <rect x="158" y="680" width="12" height="12" rx="2" fill="#D85A30"/>
+  <text x="176" y="691" font-size="11" fill="#444">Core features</text>
+  <rect x="294" y="680" width="12" height="12" rx="2" fill="#5F5E5A"/>
+  <text x="312" y="691" font-size="11" fill="#444">Quality</text>
+</svg>
+
+<p style="text-align:center; font-size:11px; color:#888; margin-top:8px;">© Stony Brook University — Electrical &amp; Computer Engineering Department</p>
+</body>
+</html>

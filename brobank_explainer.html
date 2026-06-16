@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BroBank CLI — Interactive Explainer</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #ffffff; font-family: Arial, sans-serif; padding: 12px; }
+@keyframes fadeUp { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:translateY(0); } }
+@keyframes slideIn { from { opacity:0; transform:translateX(-18px); } to { opacity:1; transform:translateX(0); } }
+@keyframes pop { 0%{transform:scale(0.7);opacity:0;} 70%{transform:scale(1.08);} 100%{transform:scale(1);opacity:1;} }
+@keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0;} }
+@keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.5;} }
+@keyframes countUp { from{opacity:0;transform:scale(0.8);} to{opacity:1;transform:scale(1);} }
+.anim-fade { animation: fadeUp 0.5s ease forwards; }
+.anim-slide { animation: slideIn 0.4s ease forwards; }
+.anim-pop { animation: pop 0.45s cubic-bezier(.2,.8,.3,1) forwards; }
+.cursor { display:inline-block; animation: blink 1s step-end infinite; }
+button { font-family: Arial, sans-serif; }
+</style>
+</head>
+<body>
+
+<div id="explainer" style="font-family:Arial,sans-serif; max-width:700px; margin:0 auto; user-select:none;">
+
+  <div id="scene-wrap" style="background:#1a1a2e; border-radius:16px; overflow:hidden; position:relative; min-height:340px;">
+    <div id="progress-bar" style="height:3px; background:#534AB7; width:0%; transition:width 0.4s ease;"></div>
+    <div id="scene" style="padding:32px 36px 28px; min-height:316px; display:flex; flex-direction:column; justify-content:center;"></div>
+    <div style="display:flex; align-items:center; justify-content:space-between; padding:0 36px 20px; gap:12px;">
+      <button id="btn-prev" onclick="prevScene()" style="background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15); color:#ccc; padding:7px 18px; border-radius:8px; cursor:pointer; font-size:13px;">← Back</button>
+      <div id="dots" style="display:flex; gap:7px;"></div>
+      <button id="btn-next" onclick="nextScene()" style="background:#534AB7; border:none; color:#fff; padding:7px 20px; border-radius:8px; cursor:pointer; font-size:13px; font-weight:600;">Next →</button>
+    </div>
+  </div>
+
+  <div style="display:flex; gap:8px; margin-top:10px; flex-wrap:wrap; justify-content:center;" id="scene-pills"></div>
+</div>
+
+<script>
+const SCENES = [
+  {
+    id:'intro', label:'What is BroBank?', color:'#534AB7',
+    render(el) {
+      el.innerHTML = `
+        <div class="anim-fade" style="text-align:center; padding:10px 0 6px;">
+          <div class="anim-pop" style="display:inline-block; background:#534AB7; border-radius:50%; width:70px; height:70px; line-height:70px; font-size:34px; margin-bottom:18px;">🏦</div>
+          <h2 style="color:#EEEDFE; font-size:26px; font-weight:700; margin:0 0 10px;">Welcome to BroBank CLI</h2>
+          <p style="color:#AFA9EC; font-size:15px; line-height:1.7; max-width:420px; margin:0 auto 20px;">A command-line banking app you build in C — step by step, week by week. No graphics, just pure code that works.</p>
+          <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+            <span style="background:#3C3489; color:#CECBF6; padding:5px 14px; border-radius:20px; font-size:12px; font-weight:600;">5 Weeks</span>
+            <span style="background:#3C3489; color:#CECBF6; padding:5px 14px; border-radius:20px; font-size:12px; font-weight:600;">Built in C</span>
+            <span style="background:#3C3489; color:#CECBF6; padding:5px 14px; border-radius:20px; font-size:12px; font-weight:600;">CLI Interface</span>
+          </div>
+        </div>`;
+    }
+  },
+  {
+    id:'startup', label:'Startup & Login', color:'#185FA5',
+    render(el) {
+      el.innerHTML = `
+        <div>
+          <p class="anim-fade" style="color:#85B7EB; font-size:12px; font-weight:700; letter-spacing:1.5px; margin:0 0 10px;">SCENE 1 — STARTUP</p>
+          <h3 class="anim-fade" style="color:#E6F1FB; font-size:20px; font-weight:700; margin:0 0 18px; animation-delay:.05s;">User launches the program</h3>
+          <div class="anim-slide" style="background:#0d1117; border-radius:10px; padding:18px 20px; font-family:monospace; font-size:13px; line-height:1.9; animation-delay:.1s;">
+            <span style="color:#57d1a6;">$ </span><span style="color:#e2e8f0;">./brobank</span><br>
+            <span id="t1l2" style="opacity:0;"></span>
+            <span id="t1l3" style="opacity:0;"></span>
+            <span id="t1l4" style="opacity:0;"></span>
+          </div>
+          <p class="anim-fade" style="color:#85B7EB; font-size:13px; margin:14px 0 0; animation-delay:.15s;">The program greets the user and asks for a PIN to authenticate.</p>
+        </div>`;
+      setTimeout(()=>{ document.getElementById('t1l2').style.cssText='opacity:1'; document.getElementById('t1l2').innerHTML='<span style="color:#a78bfa;">==============================</span><br>'; },400);
+      setTimeout(()=>{ document.getElementById('t1l3').style.cssText='opacity:1; transition:opacity 0.3s;'; document.getElementById('t1l3').innerHTML='<span style="color:#fbbf24;">  Welcome to BroBank CLI!</span><br>'; },700);
+      setTimeout(()=>{ document.getElementById('t1l4').style.cssText='opacity:1; transition:opacity 0.3s;'; document.getElementById('t1l4').innerHTML='<span style="color:#e2e8f0;">Enter PIN: </span><span class="cursor" style="color:#57d1a6;">|</span>'; },1100);
+    }
+  },
+  {
+    id:'menu', label:'Main Menu', color:'#0F6E56',
+    render(el) {
+      el.innerHTML = `
+        <div>
+          <p class="anim-fade" style="color:#5DCAA5; font-size:12px; font-weight:700; letter-spacing:1.5px; margin:0 0 10px;">SCENE 2 — MAIN MENU</p>
+          <h3 class="anim-fade" style="color:#E1F5EE; font-size:20px; font-weight:700; margin:0 0 16px; animation-delay:.05s;">A switch-driven menu appears</h3>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;" id="menu-grid"></div>
+          <p class="anim-fade" style="color:#5DCAA5; font-size:13px; margin:14px 0 0; animation-delay:.5s;">Built with a <code style="background:#0a2e22; padding:2px 6px; border-radius:4px; font-size:12px;">switch()</code> statement — each number maps to one feature.</p>
+        </div>`;
+      const items = [['1','Create account','#1D9E75'],['2','Deposit','#1D9E75'],['3','Withdraw','#1D9E75'],['4','View balance','#1D9E75'],['5','Transfer','#1D9E75'],['6','View history','#1D9E75'],['0','Exit','#888']];
+      const g = document.getElementById('menu-grid');
+      items.forEach(([num,label,col],i)=>{
+        const d = document.createElement('div');
+        d.style.cssText='background:#0a2e22; border:1px solid #1D9E75; border-radius:8px; padding:8px 12px; display:flex; align-items:center; gap:8px; opacity:0; transition:opacity 0.3s;';
+        d.innerHTML=`<span style="background:${col}; color:#fff; border-radius:50%; width:22px; height:22px; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700; flex-shrink:0;">${num}</span><span style="color:#9FE1CB; font-size:13px;">${label}</span>`;
+        g.appendChild(d);
+        setTimeout(()=>{ d.style.opacity='1'; }, 200+i*100);
+      });
+    }
+  },
+  {
+    id:'deposit', label:'Deposit Flow', color:'#BA7517',
+    render(el) {
+      el.innerHTML = `
+        <div>
+          <p class="anim-fade" style="color:#EF9F27; font-size:12px; font-weight:700; letter-spacing:1.5px; margin:0 0 10px;">SCENE 3 — DEPOSIT FLOW</p>
+          <h3 class="anim-fade" style="color:#FAEEDA; font-size:20px; font-weight:700; margin:0 0 16px; animation-delay:.05s;">Watch money flow into an account</h3>
+          <div style="display:flex; align-items:stretch; gap:10px; margin-bottom:14px;">
+            <div class="anim-pop" style="flex:1; background:#1a0f00; border:1px solid #854F0B; border-radius:10px; padding:12px; text-align:center; animation-delay:.1s;"><div style="font-size:22px; margin-bottom:6px;">👤</div><div style="color:#EF9F27; font-size:12px; font-weight:700;">User</div><div style="color:#FAC775; font-size:11px; margin-top:4px;">types: 2, then<br>enters amount</div></div>
+            <div style="display:flex; align-items:center; color:#EF9F27; font-size:22px; animation:pulse 1.5s infinite;">→</div>
+            <div class="anim-pop" style="flex:1; background:#1a0f00; border:1px solid #854F0B; border-radius:10px; padding:12px; text-align:center; animation-delay:.2s;"><div style="font-size:22px; margin-bottom:6px;">⚙️</div><div style="color:#EF9F27; font-size:12px; font-weight:700;">C Function</div><div style="color:#FAC775; font-size:11px; margin-top:4px;"><code style="font-size:10px;">deposit()</code><br>validates input</div></div>
+            <div style="display:flex; align-items:center; color:#EF9F27; font-size:22px; animation:pulse 1.5s infinite .3s;">→</div>
+            <div class="anim-pop" style="flex:1; background:#1a0f00; border:1px solid #854F0B; border-radius:10px; padding:12px; text-align:center; animation-delay:.3s;"><div style="font-size:22px; margin-bottom:6px;">💾</div><div style="color:#EF9F27; font-size:12px; font-weight:700;">Balance</div><div id="bal-display" style="color:#fbbf24; font-size:18px; font-weight:700; margin-top:6px;">$0</div></div>
+          </div>
+          <div style="background:#0d1117; border-radius:8px; padding:12px 16px; font-family:monospace; font-size:12px; color:#9FE1CB;">
+            <span style="color:#57d1a6;">Enter deposit amount: </span><span id="dep-amount" style="color:#fbbf24;"></span><span class="cursor" style="color:#57d1a6;" id="dep-cursor">|</span>
+          </div>
+        </div>`;
+      const amounts=['1','15','150','150.'];
+      let i=0;
+      const amtEl=document.getElementById('dep-amount');
+      const cursor=document.getElementById('dep-cursor');
+      const bal=document.getElementById('bal-display');
+      const t=setInterval(()=>{
+        if(i<amounts.length){ amtEl.textContent=amounts[i]; i++; }
+        else { clearInterval(t); cursor.style.display='none'; amtEl.textContent='150.00'; setTimeout(()=>{ bal.style.animation='countUp 0.5s ease forwards'; bal.textContent='$150.00'; },500); }
+      },350);
+    }
+  },
+  {
+    id:'validation', label:'Input Validation', color:'#A32D2D',
+    render(el) {
+      el.innerHTML = `
+        <div>
+          <p class="anim-fade" style="color:#F09595; font-size:12px; font-weight:700; letter-spacing:1.5px; margin:0 0 10px;">SCENE 4 — INPUT VALIDATION</p>
+          <h3 class="anim-fade" style="color:#FCEBEB; font-size:20px; font-weight:700; margin:0 0 16px; animation-delay:.05s;">What happens when users make mistakes?</h3>
+          <div id="val-cases" style="display:flex; flex-direction:column; gap:8px;"></div>
+        </div>`;
+      const cases=[{input:'-50',result:'Error: amount must be positive',ok:false},{input:'abc',result:'Error: invalid number',ok:false},{input:'99999999',result:'Error: insufficient funds',ok:false},{input:'200.00',result:'Success! Balance updated',ok:true}];
+      const g=document.getElementById('val-cases');
+      cases.forEach(({input,result,ok},i)=>{
+        const d=document.createElement('div');
+        d.style.cssText='opacity:0; transition:opacity 0.3s; display:flex; align-items:center; gap:10px; background:#1a0505; border-radius:8px; padding:9px 14px; border-left:3px solid '+(ok?'#1D9E75':'#E24B4A');
+        d.innerHTML=`<span style="font-family:monospace; color:#e2e8f0; font-size:12px; background:#111; padding:2px 8px; border-radius:4px; flex-shrink:0;">${input}</span><span style="color:#888; font-size:12px;">→</span><span style="color:${ok?'#57d1a6':'#F09595'}; font-size:12px;">${result}</span>`;
+        g.appendChild(d);
+        setTimeout(()=>{ d.style.opacity='1'; }, 200+i*220);
+      });
+    }
+  },
+  {
+    id:'structs', label:'Data Structures', color:'#534AB7',
+    render(el) {
+      el.innerHTML = `
+        <div>
+          <p class="anim-fade" style="color:#AFA9EC; font-size:12px; font-weight:700; letter-spacing:1.5px; margin:0 0 10px;">SCENE 5 — DATA MODELING (WEEK 4)</p>
+          <h3 class="anim-fade" style="color:#EEEDFE; font-size:20px; font-weight:700; margin:0 0 16px; animation-delay:.05s;">Structs hold each account's data</h3>
+          <div class="anim-slide" style="background:#0d1117; border-radius:10px; padding:16px 20px; font-family:monospace; font-size:12.5px; line-height:2; animation-delay:.1s;">
+            <span style="color:#7F77DD;">struct </span><span style="color:#57d1a6;">Account</span><span style="color:#e2e8f0;"> {</span><br>
+            <span id="s1" style="opacity:0; transition:opacity 0.3s;"><span style="color:#e2e8f0;">  </span><span style="color:#7F77DD;">int</span><span style="color:#e2e8f0;">    id;</span><br></span>
+            <span id="s2" style="opacity:0; transition:opacity 0.3s;"><span style="color:#e2e8f0;">  </span><span style="color:#7F77DD;">char</span><span style="color:#e2e8f0;">   name[50];</span><br></span>
+            <span id="s3" style="opacity:0; transition:opacity 0.3s;"><span style="color:#e2e8f0;">  </span><span style="color:#7F77DD;">float</span><span style="color:#e2e8f0;">  balance;</span><br></span>
+            <span id="s4" style="opacity:0; transition:opacity 0.3s;"><span style="color:#e2e8f0;">  </span><span style="color:#7F77DD;">int</span><span style="color:#e2e8f0;">    pin;</span><br></span>
+            <span style="color:#e2e8f0;">};</span>
+          </div>
+          <div id="struct-note" style="opacity:0; transition:opacity 0.4s; background:#1e1a3a; border-radius:8px; padding:10px 14px; margin-top:12px;">
+            <p style="color:#AFA9EC; font-size:13px; margin:0; line-height:1.6;">An array of <code style="background:#2d2766; padding:1px 5px; border-radius:3px; font-size:11px;">Account</code> structs stores all users in memory — saved to a file in Week 5.</p>
+          </div>
+        </div>`;
+      [1,2,3,4].forEach(n=>setTimeout(()=>{ const e=document.getElementById('s'+n); if(e) e.style.opacity='1'; },n*250));
+      setTimeout(()=>{ const e=document.getElementById('struct-note'); if(e) e.style.opacity='1'; },1300);
+    }
+  },
+  {
+    id:'persistence', label:'Save & Load', color:'#0F6E56',
+    render(el) {
+      el.innerHTML = `
+        <div>
+          <p class="anim-fade" style="color:#5DCAA5; font-size:12px; font-weight:700; letter-spacing:1.5px; margin:0 0 10px;">SCENE 6 — PERSISTENCE (WEEK 5)</p>
+          <h3 class="anim-fade" style="color:#E1F5EE; font-size:20px; font-weight:700; margin:0 0 16px; animation-delay:.05s;">Data survives after the program exits</h3>
+          <div style="display:flex; gap:14px; align-items:center; flex-wrap:wrap;">
+            <div class="anim-pop" style="flex:1; min-width:150px; background:#041a12; border:1px solid #0F6E56; border-radius:10px; padding:14px; text-align:center; animation-delay:.1s;"><div style="font-size:28px; margin-bottom:6px;">🖥️</div><div style="color:#9FE1CB; font-size:13px; font-weight:700; margin-bottom:4px;">Program (RAM)</div><div style="color:#5DCAA5; font-size:11px;">Accounts, balances,<br>transaction history</div></div>
+            <div style="text-align:center;"><div style="color:#1D9E75; font-size:20px; animation:pulse 1.4s infinite;">⇅</div><div style="color:#5DCAA5; font-size:10px; margin-top:4px; font-family:monospace;">fwrite()<br>fread()</div></div>
+            <div class="anim-pop" style="flex:1; min-width:150px; background:#041a12; border:1px solid #0F6E56; border-radius:10px; padding:14px; text-align:center; animation-delay:.2s;"><div style="font-size:28px; margin-bottom:6px;">📁</div><div style="color:#9FE1CB; font-size:13px; font-weight:700; margin-bottom:4px;">File (Disk)</div><div style="color:#5DCAA5; font-size:11px; font-family:monospace;">brobank.dat</div></div>
+          </div>
+          <div class="anim-fade" style="background:#041a12; border-radius:8px; padding:10px 14px; margin-top:12px; animation-delay:.4s;"><div style="font-family:monospace; font-size:12px; color:#57d1a6;">fwrite(&amp;accounts, sizeof(Account), count, file);</div></div>
+        </div>`;
+    }
+  },
+  {
+    id:'done', label:'Final Product', color:'#D85A30',
+    render(el) {
+      el.innerHTML = `
+        <div style="text-align:center;">
+          <div class="anim-pop" style="font-size:52px; margin-bottom:14px;">🎉</div>
+          <h2 class="anim-fade" style="color:#FAEEDA; font-size:22px; font-weight:700; margin:0 0 10px; animation-delay:.1s;">BroBank — complete!</h2>
+          <p class="anim-fade" style="color:#F5C4B3; font-size:14px; line-height:1.7; max-width:380px; margin:0 auto 20px; animation-delay:.2s;">By Week 5 you have a fully working CLI banking app with accounts, transactions, validation, and file persistence.</p>
+          <div class="anim-fade" style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap; animation-delay:.3s;">
+            <div style="background:#2a1200; border:1px solid #D85A30; border-radius:10px; padding:10px 16px; text-align:center; min-width:90px;"><div style="color:#F0997B; font-size:22px; font-weight:700;">5</div><div style="color:#F5C4B3; font-size:11px;">weeks</div></div>
+            <div style="background:#2a1200; border:1px solid #D85A30; border-radius:10px; padding:10px 16px; text-align:center; min-width:90px;"><div style="color:#F0997B; font-size:22px; font-weight:700;">6</div><div style="color:#F5C4B3; font-size:11px;">features</div></div>
+            <div style="background:#2a1200; border:1px solid #D85A30; border-radius:10px; padding:10px 16px; text-align:center; min-width:90px;"><div style="color:#F0997B; font-size:22px; font-weight:700;">1</div><div style="color:#F5C4B3; font-size:11px;">awesome app</div></div>
+          </div>
+        </div>`;
+    }
+  }
+];
+
+let current = 0;
+
+function render() {
+  const s = SCENES[current];
+  const el = document.getElementById('scene');
+  el.style.opacity = '0';
+  setTimeout(() => {
+    el.innerHTML = '';
+    s.render(el);
+    el.style.transition = 'opacity 0.3s';
+    el.style.opacity = '1';
+  }, 150);
+  document.getElementById('progress-bar').style.width = ((current+1)/SCENES.length*100)+'%';
+  document.getElementById('progress-bar').style.background = s.color;
+  document.getElementById('btn-prev').style.opacity = current===0 ? '0.3' : '1';
+  document.getElementById('btn-next').textContent = current===SCENES.length-1 ? 'Restart ↺' : 'Next →';
+  const dots = document.getElementById('dots');
+  dots.innerHTML = '';
+  SCENES.forEach((_,i)=>{
+    const d = document.createElement('div');
+    d.style.cssText = 'width:7px; height:7px; border-radius:50%; background:'+(i===current?SCENES[i].color:'rgba(255,255,255,0.2)')+'; transition:background 0.3s; cursor:pointer;';
+    d.onclick = ()=>{ current=i; render(); };
+    dots.appendChild(d);
+  });
+  const pills = document.getElementById('scene-pills');
+  pills.innerHTML = '';
+  SCENES.forEach((sc,i)=>{
+    const p = document.createElement('button');
+    p.textContent = sc.label;
+    p.style.cssText = 'background:'+(i===current?sc.color:'#f0f0f0')+'; color:'+(i===current?'#fff':'#555')+'; border:none; padding:5px 12px; border-radius:20px; font-size:11px; cursor:pointer; transition:all 0.2s; font-weight:'+(i===current?'700':'400')+';';
+    p.onclick = ()=>{ current=i; render(); };
+    pills.appendChild(p);
+  });
+}
+function nextScene() { if(current<SCENES.length-1) current++; else current=0; render(); }
+function prevScene() { if(current>0) { current--; render(); } }
+render();
+</script>
+</body>
+</html>
